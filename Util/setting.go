@@ -31,6 +31,12 @@ func init(){
 	
 	}
 	LoadData(cfg)
+	LoadServer(cfg)
+}
+func LoadServer(file *ini.File) {
+	AppMode = file.Section("server").Key("AppMode").String()
+	HttpPort = file.Section("server").Key("HttpPort").String()
+	
 }
 
 func LoadData(file *ini.File) {
