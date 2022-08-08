@@ -16,6 +16,9 @@ router:=r.Group("api")
 {
 
 router.POST("patient/add",v1.Addpatient)
+router.GET("patient/getpatient",v1.Getpatientone)
+router.GET("patient/deletepatient",v1.Deletepatient)
+
 
 }
 _=r.Run(util.HttpPort)

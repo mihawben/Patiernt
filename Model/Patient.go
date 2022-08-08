@@ -12,17 +12,16 @@ type Patient struct {
 	PatierntName  string    `gorm:"type:varchar(128);not null" json:"patierntName"   lable:"患者名称"`
 	PatierntAge   int64     `gorm:"size:3" json:"patierntage" lable:"年龄"`
 	PatiernHeight float64   `gorm:"type:float" json:"patiernheight" lable:"身高"`
-	Nationality   string  `gorm:"type:varchar(128);not null" json:"nationality"   lable:"国籍"`
-	Nation        string`gorm:"type:varchar(128);not null" json:"nation"   lable:"民族"`
-	Address       string`gorm:"type:varchar(128);not null" json:"address"   lable:"地址"`
-    Email         string`gorm:"type:varchar(128);not null" json:"email"   lable:"邮箱"`
-	Phonecall     string`gorm:"type:varchar(128);not null" json:"phonecall"   lable:"电话号码"`
-	Ismarriage    bool   `gorm:"type:tinyint(1);not null" json:"ismarriage"   lable:"是否结婚"`
-    IDNumber      string `gorm:"type:varchar(128);not null" json:"idnumber"   lable:"身份证号"`
-	Gender        string `gorm:"type:varchar(128);not null" json:"gender"   lable:"性别"`
-	MotherID   uuid.UUID `gorm:"type:varchar(128)" json:"motherID"   lable:"母亲id"`
+	Nationality   string    `gorm:"type:varchar(128);not null" json:"nationality"   lable:"国籍"`
+	Nation        string    `gorm:"type:varchar(128);not null" json:"nation"   lable:"民族"`
+	Address       string    `gorm:"type:varchar(128);not null" json:"address"   lable:"地址"`
+	Email         string    `gorm:"type:varchar(128);not null" json:"email"   lable:"邮箱"`
+	Phonecall     string    `gorm:"type:varchar(128);not null" json:"phonecall"   lable:"电话号码"`
+	Ismarriage    bool      `gorm:"type:tinyint(1);not null" json:"ismarriage"   lable:"是否结婚"`
+	IDNumber      string    `gorm:"type:varchar(128);not null" json:"idnumber"   lable:"身份证号"`
+	Gender        string    `gorm:"type:varchar(128);not null" json:"gender"   lable:"性别"`
+	MotherID      uuid.UUID `gorm:"type:varchar(128)" json:"motherID"   lable:"母亲id"`
 	FatherID      uuid.UUID `gorm:"type:varchar(128)" json:"fatherID"   lable:"父亲id"`
-	
 }
 
 //添加数据或修改
@@ -52,7 +51,16 @@ func Getpatentone(Patientid string) Patient {
 	err := db.Where("ID=?", Patientid).First(&data).Error
 	if err != nil {
 		return data
-	}       
+	}
 	return data
 }
 
+//删除
+func Deletpatient(Patientid string) (int, string) {
+	err := db.Delete(&Patient{}, Patientid).Error
+	if err != nil {
+		return 0, "删除失败"
+	}
+	return 1, "删除成功"
+
+}
